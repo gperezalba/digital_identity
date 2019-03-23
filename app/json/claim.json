@@ -1,0 +1,39 @@
+{
+  "Claims": [{
+      "Header": {
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "NetworkId": "AlastriaTestNet01"
+      },
+      "Subject": {
+        "SubjectAlastriaID": "SubjectProxyAddress"
+      },
+      "AtributeData": {
+        "@LevelOfAssurance": "2"
+      },
+      "IssuanceDates": {
+        "InitialValidityDate": "",
+        "EndValidityDate": ""
+      },
+      "Issuer": {
+        "IssuerURL": "IssuerURL",
+        "IssuerAlastriaID": "IssuerProxyAddress",
+        "IssuerPubKey": "CurrentIssuerPubKey",
+        "IssuerSignature": "IssuerSignature"
+      }
+    }],
+    "ClaimDates": {
+      "InitialClaimDate": "",
+      "EndClaimDates": ""
+    },
+    "Recipient": {
+      "RecipientAlastriaID": "RecipientProxyAddress"
+    },
+    "Purpose": {
+      "ProcessHash": "Hash of the process name & description"
+    },
+    "Signature": {
+      "SubjectPubKey": "CurrentSubjectPubKey",
+      "SubjectSignature": "SubjectSignature"
+    }
+}
