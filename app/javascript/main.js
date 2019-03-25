@@ -21,6 +21,7 @@ const {
 // keys. It would be unwise to use such a predictable private key in a real
 // application.
 console.log(privateKey.toString('utf8'))
+console.log(publicKey.toString('utf8'))
 
 const sign2 = crypto.createSign('SHA256');
 sign2.update('{type: jwt, curve: secp521r1}');
