@@ -1,8 +1,5 @@
-1. La librería blockchainWeb3 pasarla a un repo independiente e incluir el repo
-al package.json ("git": "gitrepo"). (así se importarían con require creo)
+1. Arreglar fs y solc (?) o coger hacer el deploy cogiendo de remix?
 
-2. Arreglar fs y solc
+2. Crear funciones js para crear DIDs, firmar etc
 
-3. contratos en 4.15 cambiar version truffle para solc 4.15 o cambiar pragma (?)
-
-4. Crear funciones js para crear DIDs, firmar etc
+3. 
