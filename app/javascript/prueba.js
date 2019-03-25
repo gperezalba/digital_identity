@@ -9,4 +9,5 @@ bcWeb3.setDefaultAccount(acc[3]);
 var def2 = bcWeb3.getDefaultAccount();
 console.log(def2)
 
-var identiyManager = bcWeb3.deployIdentityManager();
+var identiyManager = bcWeb3.deployIdentityManager(1);
+console.log(identiyManager)

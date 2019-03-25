@@ -16,6 +16,6 @@ let didModel = {
 }
 
 function generate(){
-    bcWeb3.deployContract(contractPath, contractName);
+    var identiyManager = bcWeb3.deployIdentityManager(1);
     return
 }
