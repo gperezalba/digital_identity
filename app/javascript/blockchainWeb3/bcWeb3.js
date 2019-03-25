@@ -1,5 +1,5 @@
 //const fs = require("fs");
-//const solc = require('./../../../node_modules/solc/solcjs');
+//const solc = require('solc');
 //import solc from './../../../node_modules/solc/solcjs'
 
 var Web3 = require('web3');
