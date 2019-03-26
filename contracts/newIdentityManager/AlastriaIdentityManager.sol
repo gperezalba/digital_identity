@@ -1,9 +1,13 @@
 pragma solidity 0.4.15;
 
-import "./AlastriaIdentityProvider.sol";
-import "./AlastriaIdentityAttestator.sol";
-import "./proxy.sol";
-import "./libs/Owned.sol";
+//import "./AlastriaIdentityProvider.sol";
+import "https://github.com/gperezalba/digital_identity/contracts/newIdentityManager/AlastriaIdentityProvider.sol";
+//import "./AlastriaIdentityAttestator.sol";
+import "https://github.com/gperezalba/digital_identity/contracts/newIdentityManager/AlastriaIdentityAttestator.sol";
+//import "./proxy.sol";
+import "https://github.com/gperezalba/digital_identity/contracts/newIdentityManager/proxy.sol";
+//import "./libs/Owned.sol";
+import "https://github.com/gperezalba/digital_identity/contracts/newIdentityManager/libs/Owned.sol";
 
 contract AlastriaIdentityManager is AlastriaIdentityProvider, AlastriaIdentityAttestator, Owned {
     //Variables
