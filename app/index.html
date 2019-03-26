@@ -4,9 +4,22 @@
     <meta charset="utf-8">
     <title></title>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-    <script type="module" src="./javascript/prueba.js"></script>
+    <script type="module" src="./javascript/didGenerate.js"></script>
   </head>
   <body>
-
+    <button onclick="initIdentityManager();">initIdentityManager</button>
+    <br>
+    <input type="text" id="generateAccessToken" value="" placeholder="Address of identityManager">
+    <button onclick="generateAccessToken();">generateAccessToken</button>
+    <br>
+    <input type="text" id="createAlastriaIdentity" value="" placeholder="Address of identityManager">
+    <button onclick="createAlastriaIdentity();">createAlastriaIdentity</button>
+    <br>
+    <input type="text" id="initPubKeyRegistry" value="" placeholder="previousPublishedVersion">
+    <button onclick="initPubKeyRegistry();">initPubKeyRegistry</button>
+    <br>
+    <input type="text" id="initPubKeyRegistry" value="" placeholder="Address of Registry">
+    <input type="text" id="pubKey" value="" placeholder="pubKey">
+    <button onclick="publishPubKey();">publishPubKey</button>
   </body>
 </html>
