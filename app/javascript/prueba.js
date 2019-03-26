@@ -11,9 +11,8 @@ bcWeb3.setDefaultAccount(acc[3]);
 var def2 = bcWeb3.getDefaultAccount();
 console.log(def2)
 
-idManagerWeb3.deployPrueba();
+var randomAddress = "0xc0d8f541ab8b71f20c10261818f2f401e8194049";
+var pubKeyRegistry = registryWeb3.deployPubKeyRegistry(randomAddress);
 
-//var randomAddress = "0xc0d8f541ab8b71f20c10261818f2f401e8194049";
-//var pubKeyRegistry = registryWeb3.deployPubKeyRegistry(randomAddress);
-
-//var identiyManager = idManagerWeb3.deployIdentityManager(1);
+var identityManager = idManagerWeb3.deployIdentityManager(1);
+console.log(identityManager.address)

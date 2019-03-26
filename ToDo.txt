@@ -1,9 +1,8 @@
 1. Arreglar fs y solc (?) o coger hacer el deploy cogiendo de remix?
-El problema al desplegar aparece por coger de remix, ya que requiere importar
-la librería Eidas.sol y la intenta importar de la ruta ...browser/Eidas.sol
-que es inaccesible desde el js...
-Habría que poder solc compilar desde el js ADEMAS CON DISTINTAS VERSIONES SOLC 
+Habría que poder solc compilar desde el js ADEMAS CON DISTINTAS VERSIONES SOLC
 
-2. Crear funciones js para crear DIDs, firmar etc
+2. Crear librería para web3js v 1.0 y hacer la función deploy pasndole abi y bytecode
 
-3.
+3. Crear funciones js para crear DIDs, firmar etc
+
+4.

@@ -34,7 +34,7 @@ contract AlastriaIdentityAttestator {
 
     function AlastriaIdentityAttestator() {
         // FIXME: This must be an Alastria_ID created from AlastriaIdentityManager.
-        addIdentityAttestator(msg.sender, Eidas.EidasLevel.High);
+        //addIdentityAttestator(msg.sender, Eidas.EidasLevel.High);
     }
 
     function addIdentityAttestator(address _identityAttestator, Eidas.EidasLevel _level) public alLeastLow(_level) notIdentityAttestator(_identityAttestator) {
