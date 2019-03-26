@@ -1,8 +1,7 @@
 pragma solidity 0.4.15;
 // Deleted dependency to import "./libs/Owned.sol";
 
-//import "./libs/Owned.sol";
-import "https://github.com/gperezalba/digital_identity/contracts/newIdentityManager/libs/Owned.sol";
+import "./libs/Owned.sol";
 
 
 contract proxy is Owned {

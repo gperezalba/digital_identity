@@ -1,7 +1,6 @@
 pragma solidity 0.4.15;
 
-//import "./libs/Eidas.sol";
-import "https://github.com/gperezalba/digital_identity/contracts/newIdentityManager/libs/Eidas.sol";
+import "./libs/Eidas.sol";
 
 
 /** We use 0.4.15 for UPORT compatibility.
