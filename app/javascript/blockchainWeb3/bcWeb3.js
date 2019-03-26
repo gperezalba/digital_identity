@@ -137,6 +137,6 @@ export function deployContract (filePath, nameContract){
 
 export function getContractInstance(abi, address) {
   var contract = web3.eth.contract(abi);
-  contractInstance = contract.at(address);
+  var contractInstance = contract.at(address);
   return contractInstance;
 }

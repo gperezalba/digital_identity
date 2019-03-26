@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
   <head>
     <meta charset="utf-8">
-    <title></title>
     <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
     <script type="module" src="./javascript/didGenerate.js"></script>
+    <title></title>
+
   </head>
   <body>
+    <input type="text" id="initIdentityManager" value="" placeholder="Prev version">
     <button onclick="initIdentityManager();">initIdentityManager</button>
     <br>
     <input type="text" id="generateAccessToken" value="" placeholder="Address of identityManager">
@@ -21,5 +23,6 @@
     <input type="text" id="initPubKeyRegistry" value="" placeholder="Address of Registry">
     <input type="text" id="pubKey" value="" placeholder="pubKey">
     <button onclick="publishPubKey();">publishPubKey</button>
+
   </body>
 </html>
