@@ -22,15 +22,49 @@
     <input type="text" id="registryContractAddress" value="" placeholder="Address of Registry Contract">
     <br>
     <input type="text" id="initPubKeyRegistry" value="" placeholder="previousPublishedVersion">
-    <button onclick="initPubKeyRegistry();">initPubKeyRegistry</button>
+    <button onclick="initPubKeyRegistry();">Deploy Public Key Registry</button>
     <br>
     <input type="text" id="pubKey" value="" placeholder="pubKey">
     <button onclick="publishPubKey();">publishPubKey</button>
+    <h3>Claim Registry</h3>
+    <input type="text" id="claimRegistryContractAddress" value="" placeholder="Address of ClaimRegistry Contract">
+    <br>
+    <h5>Subject</h5>
+    <input type="text" id="dataHashSet" value="" placeholder="dataHashSet">
+    <input type="text" id="uriSet" value="" placeholder="uriSet">
+    <button onclick="set();">set</button>
+    <br>
+    <input type="text" id="dataHashSubjectUpdateClaim" value="" placeholder="dataHashSubjectUpdateClaim">
+    <input type="text" id="statusSubjectUpdateClaim" value="" placeholder="statusSubjectUpdateClaim">
+    <button onclick="subjectUpdateClaim();">subjectUpdateClaim</button>
+    <br>
+    <input type="text" id="dataHashSubjectClaimStatus" value="" placeholder="dataHashSubjectClaimStatus">
+    <input type="text" id="subjectSubjectClaimStatus" value="" placeholder="subjectSubjectClaimStatus">
+    <button onclick="subjectClaimStatus();">subjectClaimStatus</button>
+    <br>
+    <button onclick="subjectClaimList();">subjectClaimList</button>
+    <input type="text" id="responseSubjectClaimList" value="" placeholder="">
+    <br>
+    <h5>Receiver</h5>
+    <input type="text" id="dualHashReceiverUpdateClaim" value="" placeholder="dualHashReceiverUpdateClaim">
+    <input type="text" id="statusReceiverUpdateClaim" value="" placeholder="statusReceiverUpdateClaim">
+    <button onclick="receiverUpdateClaim();">receiverUpdateClaim</button>
+    <br>
+    <input type="text" id="issuerReceiverClaimStatus" value="" placeholder="issuerReceiverClaimStatus">
+    <input type="text" id="dualHashReceiverClaimStatus" value="" placeholder="dualHashReceiverClaimStatus">
+    <button onclick="receiverClaimStatus();">receiverClaimStatus</button>
+    <input type="text" id="responseReceiverClaimStatus" value="" placeholder="">
+    <br>
+    <h5>Utility</h5>
+    <input type="text" id="subjectStatusClaimStatus" value="" placeholder="subjectStatusClaimStatus">
+    <input type="text" id="receiverStatusClaimStatus" value="" placeholder="receiverStatusClaimStatus">
+    <button onclick="claimStatus();">claimStatus</button>
+    <input type="text" id="responseClaimStatus" value="" placeholder="">
     <h3>Identity Manager</h3>
     <input type="text" id="idManagerContractAddress" value="" placeholder="Address of idManager Contract">
     <br>
     <input type="text" id="initIdentityManager" value="" placeholder="Prev version">
-    <button onclick="initIdentityManager();">initIdentityManager</button>
+    <button onclick="initIdentityManager();">Deploy Identity Manager</button>
     <br>
     <button onclick="generateAccessToken();">generateAccessToken</button>
     <br>

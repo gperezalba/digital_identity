@@ -37,7 +37,7 @@ export function deletePublicKey(address, pubKey){
   contract.deletePublicKey(pubKey, {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-export function currentPublicKey(address, address){
+export function currentPublicKey(address){
   var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(address));
   contract.currentPublicKey(address, {from: web3.eth.defaultAccount, gas: 300000});
 }

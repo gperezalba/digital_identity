@@ -1,6 +1,7 @@
 import * as bcWeb3 from './blockchainWeb3/bcWeb3.js';
 import * as idManagerWeb3 from './blockchainWeb3/idManagerWeb3.js';
 import * as registryWeb3 from './blockchainWeb3/registryWeb3.js';
+import * as claimRegistryWeb3 from './blockchainWeb3/claimRegistryWeb3.js';
 
 //*************GENERAL
 
@@ -38,6 +39,70 @@ function publishPubKey(pubKey){
 
 }
 window.publishPubKey = publishPubKey;
+
+//**************CLAIM REGISTRY
+
+//Subject
+
+function deployClaimRegistry(){
+  var previousPublishedVersion = document.getElementById("initClaimRegistry").value;
+  var pubKeyRegistry = registryWeb3.deployPubKeyRegistry(String(previousPublishedVersion));
+}
+
+function set(){
+  var dataHash = document.getElementById("dataHashSet").value;
+  var uri = document.getElementById("uriSet").value;
+  var address = document.getElementById("claimRegistryContractAddress").value;
+  claimRegistryWeb3.set(address, dataHash, uri);
+}
+
+function subjectUpdateClaim(){
+  var dataHash = document.getElementById("dataHashSubjectUpdateClaim").value;
+  var status = document.getElementById("statusSubjectUpdateClaim").value;
+  var address = document.getElementById("claimRegistryContractAddress").value;
+  claimRegistryWeb3.subjectUpdateClaim(address, dataHash, uri);
+}
+
+function subjectClaimStatus(){
+  var dataHash = document.getElementById("dataHashSubjectClaimStatus").value;
+  var subject = document.getElementById("subjectSubjectClaimStatus").value;
+  var address = document.getElementById("claimRegistryContractAddress").value;
+  var response = claimRegistryWeb3.subjectClaimStatus(address, subject, dataHash);
+  document.getElementById("responseSubjectClaimStatus").value = response;
+}
+
+function subjectClaimList(){
+  var address = document.getElementById("claimRegistryContractAddress").value;
+  var response = claimRegistryWeb3.subjectClaimList(address);
+  document.getElementById("responseSubjectClaimList").value = response;
+}
+
+//Receiver
+
+function receiverUpdateClaim(){
+  var dualHash = document.getElementById("dualHashReceiverUpdateClaim").value;
+  var status = document.getElementById("statusReceiverUpdateClaim").value;
+  var address = document.getElementById("claimRegistryContractAddress").value;
+  claimRegistryWeb3.receiverUpdateClaim(address, dualHash, status);
+}
+
+function receiverClaimStatus(){
+  var issuer = document.getElementById("issuerReceiverClaimStatus").value;
+  var dualHash = document.getElementById("dualHashReceiverClaimStatus").value;
+  var address = document.getElementById("claimRegistryContractAddress").value;
+  var response = claimRegistryWeb3.receiverClaimStatus(address, issuer, dualHash);
+  document.getElementById("responseReceiverClaimStatus").value = response;
+}
+
+//Utility
+
+function claimStatus(){
+  var subjectStatus = document.getElementById("subjectStatusClaimStatus").value;
+  var receiverStatus = document.getElementById("receiverStatusClaimStatus").value;
+  var address = document.getElementById("claimRegistryContractAddress").value;
+  var response = claimRegistryWeb3.claimStatus(address);
+  document.getElementById("responseClaimStatus").value = response;
+}
 
 //*************IDENTITY MANAGER
 
