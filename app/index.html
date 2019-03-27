@@ -18,14 +18,29 @@
     <br>
     <input type="text" id="setDefaultAccount" value="" placeholder="">
     <button onclick="setDefaultAccount();">Set Default Account</button>
-    <h3>Registry</h3>
+    <h3>Public Key Registry</h3>
     <input type="text" id="registryContractAddress" value="" placeholder="Address of Registry Contract">
     <br>
     <input type="text" id="initPubKeyRegistry" value="" placeholder="previousPublishedVersion">
-    <button onclick="initPubKeyRegistry();">Deploy Public Key Registry</button>
+    <button onclick="deployPubKeyRegistry();">Deploy Public Key Registry</button>
     <br>
-    <input type="text" id="pubKey" value="" placeholder="pubKey">
-    <button onclick="publishPubKey();">publishPubKey</button>
+    <input type="text" id="pubKeySet" value="" placeholder="pubKeySet">
+    <button onclick="setPubKey();">setPubKey</button>
+    <br>
+    <input type="text" id="pubKeyrevokePublicKey" value="" placeholder="pubKeyrevokePublicKey">
+    <button onclick="revokePublicKey();">revokePublicKey</button>
+    <br>
+    <input type="text" id="pubKeydeletePublicKey" value="" placeholder="pubKeydeletePublicKey">
+    <button onclick="deletePublicKey();">deletePublicKey</button>
+    <br>
+    <input type="text" id="subjectcurrentPublicKey" value="" placeholder="subjectcurrentPublicKey">
+    <button onclick="currentPublicKey();">currentPublicKey</button>
+    <input type="text" id="currentPublicKeyResponse" value="" placeholder="">
+    <br>
+    <input type="text" id="subjectpublicKeyStatus" value="" placeholder="subjectpublicKeyStatus">
+    <input type="text" id="pubKeypublicKeyStatus" value="" placeholder="pubKeypublicKeyStatus">
+    <button onclick="publicKeyStatus();">publicKeyStatus</button>
+    <input type="text" id="publicKeyStatusResponse" value="" placeholder="">
     <h3>Attestation Registry</h3>
     <input type="text" id="attestationRegistryContractAddress" value="" placeholder="Address of AttestationRegistry Contract">
     <br>
