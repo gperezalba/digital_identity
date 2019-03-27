@@ -27,19 +27,49 @@ window.setDefaultAccount = setDefaultAccount;
 
 //*************REGISTRY
 
-function initPubKeyRegistry(){
+function deployPubKeyRegistry(){
   var previousPublishedVersion = document.getElementById("initPubKeyRegistry").value;
   var pubKeyRegistry = registryWeb3.deployPubKeyRegistry(String(previousPublishedVersion));
 }
 window.initPubKeyRegistry = initPubKeyRegistry;
 
-function publishPubKey(pubKey){
+function setPubKey(){
   var address = document.getElementById("registryContractAddress").value;
-  var pubKey = document.getElementById("pubKey").value;
+  var pubKey = document.getElementById("pubKeySet").value;
   registryWeb3.set(address, pubKey);
-
 }
 window.publishPubKey = publishPubKey;
+
+function revokePublicKey(){
+  var address = document.getElementById("registryContractAddress").value;
+  var pubKey = document.getElementById("pubKeyrevokePublicKey").value;
+  registryWeb3.revokePublicKey(address, pubKey);
+}
+window.revokePublicKey = revokePublicKey;
+
+function deletePublicKey(){
+  var address = document.getElementById("registryContractAddress").value;
+  var pubKey = document.getElementById("pubKeydeletePublicKey").value;
+  registryWeb3.deletePublicKey(address, pubKey);
+}
+window.deletePublicKey = deletePublicKey;
+
+async function currentPublicKey(){
+  var address = document.getElementById("registryContractAddress").value;
+  var subject = document.getElementById("subjectcurrentPublicKey").value;
+  var response = await registryWeb3.currentPublicKey(address, subject);
+  document.getElementById("currentPublicKeyResponse").value = response;
+}
+window.currentPublicKey = currentPublicKey;
+
+async function publicKeyStatus(){
+  var address = document.getElementById("registryContractAddress").value;
+  var subject = document.getElementById("subjectpublicKeyStatus").value;
+  var pubKey = document.getElementById("pubKeypublicKeyStatus").value;
+  var response = await registryWeb3.publicKeyStatus(address, subject, pubKey);
+  document.getElementById("publicKeyStatusResponse").value = response;
+}
+window.publicKeyStatus = publicKeyStatus;
 
 //***************ATTESTATION REGISTRY
 
@@ -47,6 +77,7 @@ function deployAttestationRegistry(){
   var previousPublishedVersion = document.getElementById("initAttestationRegistry").value;
   var attestationRegistry = registryWeb3.deployAttestationRegistry(String(previousPublishedVersion));
 }
+window.deployAttestationRegistry = deployAttestationRegistry;
 
 function setAttestation(){
   var dataHash = document.getElementById("dataHashSetAttestation").value;
@@ -54,12 +85,14 @@ function setAttestation(){
   var address = document.getElementById("attestationRegistryContractAddress").value;
   attestationRegistryWeb3.set(address, dataHash, uri);
 }
+window.setAttestation = setAttestation;
 
 function deleteAttestation(){
   var dataHash = document.getElementById("dataHashDeleteAttestation").value;
   var address = document.getElementById("attestationRegistryContractAddress").value;
   attestationRegistryWeb3.deleteAttestation(address, dataHash);
 }
+window.deleteAttestation = deleteAttestation;
 
 async function subjectAttestationStatus(){
   var subject = document.getElementById("subjectSubjectAttestationStatus").value;
@@ -68,12 +101,14 @@ async function subjectAttestationStatus(){
   var response = await attestationRegistryWeb3.subjectAttestationStatus(address, subject, dataHash);
   document.getElementById("subjectAttestationStatusResponse").value = response;
 }
+window.subjectAttestationStatus = subjectAttestationStatus;
 
 async function subjectAttestationList(){
   var address = document.getElementById("attestationRegistryContractAddress").value;
   var response = await attestationRegistryWeb3.subjectAttestationList(address);
   document.getElementById("subjectAttestationListResponse").value = response;
 }
+window.subjectAttestationList = subjectAttestationList;
 
 function revokeAttestation(){
   var revHash = document.getElementById("revHashrevokeAttestation").value;
@@ -81,6 +116,7 @@ function revokeAttestation(){
   var address = document.getElementById("attestationRegistryContractAddress").value;
   attestationRegistryWeb3.revokeAttestation(address, revHash, status);
 }
+window.revokeAttestation = revokeAttestation;
 
 async function issuerRevocationStatus(){
   var issuer = document.getElementById("issuerissuerRevocationStatus").value;
@@ -89,6 +125,7 @@ async function issuerRevocationStatus(){
   var response = await attestationRegistryWeb3.issuerRevocationStatus(address, issuer, revHash);
   document.getElementById("issuerRevocationStatusResponse").value = response;
 }
+window.issuerRevocationStatus = issuerRevocationStatus;
 
 async function attestationStatus(){
   var subjectStatus = document.getElementById("subjectStatusattestationStatus").value;
@@ -97,6 +134,7 @@ async function attestationStatus(){
   var response = await attestationRegistryWeb3.attestationStatus(address, subjectStatus, issuerStatus);
   document.getElementById("attestationStatusResponse").value = response;
 }
+window.attestationStatus = attestationStatus;
 
 //**************CLAIM REGISTRY
 
@@ -106,6 +144,7 @@ function deployClaimRegistry(){
   var previousPublishedVersion = document.getElementById("initClaimRegistry").value;
   var claimRegistry = registryWeb3.deployPubKeyRegistry(String(previousPublishedVersion));
 }
+window.deployClaimRegistry = deployClaimRegistry;
 
 function setClaim(){
   var dataHash = document.getElementById("dataHashSetClaim").value;
@@ -113,6 +152,7 @@ function setClaim(){
   var address = document.getElementById("claimRegistryContractAddress").value;
   claimRegistryWeb3.set(address, dataHash, uri);
 }
+window.setClaim = setClaim;
 
 function subjectUpdateClaim(){
   var dataHash = document.getElementById("dataHashSubjectUpdateClaim").value;
@@ -120,6 +160,7 @@ function subjectUpdateClaim(){
   var address = document.getElementById("claimRegistryContractAddress").value;
   claimRegistryWeb3.subjectUpdateClaim(address, dataHash, uri);
 }
+window.subjectUpdateClaim = subjectUpdateClaim;
 
 function subjectClaimStatus(){
   var dataHash = document.getElementById("dataHashSubjectClaimStatus").value;
@@ -128,12 +169,14 @@ function subjectClaimStatus(){
   var response = claimRegistryWeb3.subjectClaimStatus(address, subject, dataHash);
   document.getElementById("responseSubjectClaimStatus").value = response;
 }
+window.subjectClaimStatus = subjectClaimStatus;
 
 function subjectClaimList(){
   var address = document.getElementById("claimRegistryContractAddress").value;
   var response = claimRegistryWeb3.subjectClaimList(address);
   document.getElementById("responseSubjectClaimList").value = response;
 }
+window.subjectClaimList = subjectClaimList;
 
 //Receiver
 
@@ -143,6 +186,7 @@ function receiverUpdateClaim(){
   var address = document.getElementById("claimRegistryContractAddress").value;
   claimRegistryWeb3.receiverUpdateClaim(address, dualHash, status);
 }
+window.receiverUpdateClaim = receiverUpdateClaim;
 
 function receiverClaimStatus(){
   var issuer = document.getElementById("issuerReceiverClaimStatus").value;
@@ -151,6 +195,7 @@ function receiverClaimStatus(){
   var response = claimRegistryWeb3.receiverClaimStatus(address, issuer, dualHash);
   document.getElementById("responseReceiverClaimStatus").value = response;
 }
+window.receiverClaimStatus = receiverClaimStatus;
 
 //Utility
 
@@ -161,6 +206,7 @@ function claimStatus(){
   var response = claimRegistryWeb3.claimStatus(address);
   document.getElementById("responseClaimStatus").value = response;
 }
+window.claimStatus = claimStatus;
 
 //*************IDENTITY MANAGER
 
