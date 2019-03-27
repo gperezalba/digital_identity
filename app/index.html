@@ -8,21 +8,35 @@
 
   </head>
   <body>
-    <input type="text" id="initIdentityManager" value="" placeholder="Prev version">
-    <button onclick="initIdentityManager();">initIdentityManager</button>
+    <h3>General</h3>
+    <input type="text" id="getAccountN" value="" placeholder="N">
+    <button onclick="getAccountN();">Get Account N</button>
+    <input type="text" id="accountN" value="" placeholder="">
     <br>
-    <input type="text" id="generateAccessToken" value="" placeholder="Address of identityManager">
-    <button onclick="generateAccessToken();">generateAccessToken</button>
+    <button onclick="getDefaultAccount();">Get Default Account</button>
+    <input type="text" id="getDefaultAccount" value="" placeholder="">
     <br>
-    <input type="text" id="createAlastriaIdentity" value="" placeholder="Address of identityManager">
-    <button onclick="createAlastriaIdentity();">createAlastriaIdentity</button>
+    <input type="text" id="setDefaultAccount" value="" placeholder="">
+    <button onclick="setDefaultAccount();">Set Default Account</button>
+    <h3>Registry</h3>
+    <input type="text" id="registryContractAddress" value="" placeholder="Address of Registry Contract">
     <br>
     <input type="text" id="initPubKeyRegistry" value="" placeholder="previousPublishedVersion">
     <button onclick="initPubKeyRegistry();">initPubKeyRegistry</button>
     <br>
-    <input type="text" id="initPubKeyRegistry" value="" placeholder="Address of Registry">
     <input type="text" id="pubKey" value="" placeholder="pubKey">
     <button onclick="publishPubKey();">publishPubKey</button>
+    <h3>Identity Manager</h3>
+    <input type="text" id="idManagerContractAddress" value="" placeholder="Address of idManager Contract">
+    <br>
+    <input type="text" id="initIdentityManager" value="" placeholder="Prev version">
+    <button onclick="initIdentityManager();">initIdentityManager</button>
+    <br>
+    <button onclick="generateAccessToken();">generateAccessToken</button>
+    <br>
+    <button onclick="createAlastriaIdentity();">createAlastriaIdentity</button>
+    <br>
+
 
   </body>
 </html>

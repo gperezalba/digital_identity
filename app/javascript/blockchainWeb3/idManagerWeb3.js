@@ -2,6 +2,8 @@ import * as bcWeb3 from './bcWeb3.js';
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
+var identityManagerAbi = [{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"identityKeys","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":true,"inputs":[{"name":"_identityAttestator","type":"address"}],"name":"getEidasLevel","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"_identityAttestator","type":"address"},{"name":"_level","type":"uint8"}],"name":"addIdentityAttestator","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":true,"inputs":[{"name":"_identityProvider","type":"address"}],"name":"isIdentityProvider","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transfer","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"_identityProvider","type":"address"}],"name":"addIdentityProvider","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"owner","type":"address"},{"name":"destination","type":"address"},{"name":"data","type":"bytes"}],"name":"createIdentityWithCall","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"isOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"_signAddress","type":"address"}],"name":"generateAccessToken","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"_identityProvider","type":"address"}],"name":"removeIdentityProvider","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"_identityAttestator","type":"address"}],"name":"removeIdentityAttestator","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"_identityAttestator","type":"address"},{"name":"_level","type":"uint8"}],"name":"modifyIdentityAttestatorEidasLevel","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"owner","type":"address"},{"name":"recoveryKey","type":"address"}],"name":"createIdentity","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[],"name":"createAlastriaIdentity","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"inputs":[{"name":"_version","type":"uint256"}],"payable":false,"type":"constructor","stateMutability":"nonpayable"},{"anonymous":false,"inputs":[{"indexed":true,"name":"signAddress","type":"address"}],"name":"AccessTokenGenerated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"method","type":"string"}],"name":"OperationWasNotSupported","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"identity","type":"address"},{"indexed":true,"name":"creator","type":"address"},{"indexed":false,"name":"owner","type":"address"}],"name":"LogIdentityCreated","type":"event"}];
+
 //TEMPORARY FUNCTION UNTIL COMPILE AND DEPLOY IS FIXED
 export function deployIdentityManager(version){
   var _version = version;
@@ -21,10 +23,12 @@ export function deployIdentityManager(version){
    return alastriaidentitymanager;
 }
 
-export function generateAccessToken(contract){
-  contract.generateAccessToken(bcWeb3.getDefaultAccount, {from: bcWeb3.getDefaultAccount, gas: 3000000});
+export function generateAccessToken(address){
+  var contract = bcWeb3.getContractInstance(identityManagerAbi, String(address));
+  contract.generateAccessToken(web3.eth.defaultAccount, {from: web3.eth.defaultAccount, gas: 4700000});
 }
 
-export function createAlastriaIdentity(contract){
-  contract.createAlastriaIdentity({from: bcWeb3.getDefaultAccount, gas: 3000000});
+export function createAlastriaIdentity(address){
+  var contract = bcWeb3.getContractInstance(identityManagerAbi, String(address));
+  contract.createAlastriaIdentity({from: web3.eth.defaultAccount, gas: 4700000});
 }

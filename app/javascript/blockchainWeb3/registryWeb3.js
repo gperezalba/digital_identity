@@ -2,6 +2,8 @@ import * as bcWeb3 from './bcWeb3.js';
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
+var pubKeyRegistryAbi = [{"constant":false,"inputs":[{"name":"publicKey","type":"bytes32"}],"name":"deletePublicKey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"previousPublishedVersion","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"publicKey","type":"bytes32"}],"name":"revokePublicKey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"subject","type":"address"}],"name":"currentPublicKey","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"publicKeyList","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"publicKey","type":"bytes32"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"subject","type":"address"},{"name":"publicKey","type":"bytes32"}],"name":"publicKeyStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"},{"name":"startDate","type":"uint256"},{"name":"endDate","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_previousPublishedVersion","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"publicKey","type":"bytes32"}],"name":"PublicKeyDeleted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"publicKey","type":"bytes32"}],"name":"PublicKeyRevoked","type":"event"}];
+
 export function deployPubKeyRegistry (prevVersion){
   var _previousPublishedVersion = prevVersion;/* var of type address here */
   var alastriapublickeyregistryContract = web3.eth.contract([{"constant":false,"inputs":[{"name":"publicKey","type":"bytes32"}],"name":"deletePublicKey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"previousPublishedVersion","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"publicKey","type":"bytes32"}],"name":"revokePublicKey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"subject","type":"address"}],"name":"currentPublicKey","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"publicKeyList","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"publicKey","type":"bytes32"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"subject","type":"address"},{"name":"publicKey","type":"bytes32"}],"name":"publicKeyStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"},{"name":"startDate","type":"uint256"},{"name":"endDate","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_previousPublishedVersion","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"publicKey","type":"bytes32"}],"name":"PublicKeyDeleted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"publicKey","type":"bytes32"}],"name":"PublicKeyRevoked","type":"event"}]);
@@ -20,6 +22,27 @@ export function deployPubKeyRegistry (prevVersion){
    return alastriapublickeyregistry;
 }
 
-export function set(contract, pubKey){
-  contract.set(pubKey, {from: bcWeb3.getDefaultAccount, gas: 300000});
+export function set(address, pubKey){
+  var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(address));
+  contract.set(pubKey, {from: web3.eth.defaultAccount, gas: 300000});
+}
+
+export function revokePublicKey(address, pubKey){
+  var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(address));
+  contract.revokePublicKey(pubKey, {from: web3.eth.defaultAccount, gas: 300000});
+}
+
+export function deletePublicKey(address, pubKey){
+  var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(address));
+  contract.deletePublicKey(pubKey, {from: web3.eth.defaultAccount, gas: 300000});
+}
+
+export function currentPublicKey(address, address){
+  var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(address));
+  contract.currentPublicKey(address, {from: web3.eth.defaultAccount, gas: 300000});
+}
+
+export function publicKeyStatus(address, pubKey){
+  var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(address));
+  contract.publicKeyStatus(pubKey, {from: web3.eth.defaultAccount, gas: 300000});
 }
