@@ -26,13 +26,51 @@
     <br>
     <input type="text" id="pubKey" value="" placeholder="pubKey">
     <button onclick="publishPubKey();">publishPubKey</button>
+    <h3>Attestation Registry</h3>
+    <input type="text" id="attestationRegistryContractAddress" value="" placeholder="Address of AttestationRegistry Contract">
+    <br>
+    <input type="text" id="initAttestationRegistry" value="" placeholder="previousPublishedVersion">
+    <button onclick="deployAttestationRegistry();">deployAttestationRegistry</button>
+    <br>
+    <input type="text" id="dataHashSetAttestation" value="" placeholder="dataHashSetAttestation">
+    <input type="text" id="uriSetAttestation" value="" placeholder="uriSetAttestation">
+    <button onclick="setAttestation();">setAttestation</button>
+    <br>
+    <input type="text" id="dataHashDeleteAttestation" value="" placeholder="dataHashDeleteAttestation">
+    <input type="text" id="attestationRegistryContractAddress" value="" placeholder="attestationRegistryContractAddress">
+    <button onclick="deleteAttestation();">deleteAttestation</button>
+    <br>
+    <input type="text" id="subjectSubjectAttestationStatus" value="" placeholder="subjectSubjectAttestationStatus">
+    <input type="text" id="dataHashSubjectAttestationStatus" value="" placeholder="dataHashSubjectAttestationStatus">
+    <button onclick="subjectAttestationStatus();">subjectAttestationStatus</button>
+    <input type="text" id="subjectAttestationStatusResponse" value="" placeholder="">
+    <br>
+    <button onclick="subjectAttestationList();">subjectAttestationList</button>
+    <input type="text" id="subjectAttestationListResponse" value="" placeholder="">
+    <br>
+    <input type="text" id="revHashrevokeAttestation" value="" placeholder="revHashrevokeAttestation">
+    <input type="text" id="statusrevokeAttestation" value="" placeholder="statusrevokeAttestation">
+    <button onclick="revokeAttestation();">revokeAttestation</button>
+    <br>
+    <input type="text" id="issuerissuerRevocationStatus" value="" placeholder="issuerissuerRevocationStatus">
+    <input type="text" id="revHashissuerRevocationStatus" value="" placeholder="revHashissuerRevocationStatus">
+    <button onclick="issuerRevocationStatus();">issuerRevocationStatus</button>
+    <input type="text" id="issuerRevocationStatusResponse" value="" placeholder="">
+    <br>
+    <input type="text" id="subjectStatusattestationStatus" value="" placeholder="subjectStatusattestationStatus">
+    <input type="text" id="issuerStatusattestationStatus" value="" placeholder="issuerStatusattestationStatus">
+    <button onclick="attestationStatus();">attestationStatus</button>
+    <input type="text" id="attestationStatusResponse" value="" placeholder="">
     <h3>Claim Registry</h3>
     <input type="text" id="claimRegistryContractAddress" value="" placeholder="Address of ClaimRegistry Contract">
     <br>
+    <input type="text" id="initClaimRegistry" value="" placeholder="previousPublishedVersion">
+    <button onclick="deployClaimRegistry();">deployClaimRegistry</button>
+    <br>
     <h5>Subject</h5>
-    <input type="text" id="dataHashSet" value="" placeholder="dataHashSet">
-    <input type="text" id="uriSet" value="" placeholder="uriSet">
-    <button onclick="set();">set</button>
+    <input type="text" id="dataHashSetClaim" value="" placeholder="dataHashSetClaim">
+    <input type="text" id="uriSetClaim" value="" placeholder="uriSetClaim">
+    <button onclick="setClaim();">setClaim</button>
     <br>
     <input type="text" id="dataHashSubjectUpdateClaim" value="" placeholder="dataHashSubjectUpdateClaim">
     <input type="text" id="statusSubjectUpdateClaim" value="" placeholder="statusSubjectUpdateClaim">

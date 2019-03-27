@@ -2,6 +2,7 @@ import * as bcWeb3 from './blockchainWeb3/bcWeb3.js';
 import * as idManagerWeb3 from './blockchainWeb3/idManagerWeb3.js';
 import * as registryWeb3 from './blockchainWeb3/registryWeb3.js';
 import * as claimRegistryWeb3 from './blockchainWeb3/claimRegistryWeb3.js';
+import * as attestationRegistryWeb3 from './blockchainWeb3/attestationRegistryWeb3.js';
 
 //*************GENERAL
 
@@ -40,18 +41,75 @@ function publishPubKey(pubKey){
 }
 window.publishPubKey = publishPubKey;
 
+//***************ATTESTATION REGISTRY
+
+function deployAttestationRegistry(){
+  var previousPublishedVersion = document.getElementById("initAttestationRegistry").value;
+  var attestationRegistry = registryWeb3.deployAttestationRegistry(String(previousPublishedVersion));
+}
+
+function setAttestation(){
+  var dataHash = document.getElementById("dataHashSetAttestation").value;
+  var uri = document.getElementById("uriSetAttestation").value;
+  var address = document.getElementById("attestationRegistryContractAddress").value;
+  attestationRegistryWeb3.set(address, dataHash, uri);
+}
+
+function deleteAttestation(){
+  var dataHash = document.getElementById("dataHashDeleteAttestation").value;
+  var address = document.getElementById("attestationRegistryContractAddress").value;
+  attestationRegistryWeb3.deleteAttestation(address, dataHash);
+}
+
+async function subjectAttestationStatus(){
+  var subject = document.getElementById("subjectSubjectAttestationStatus").value;
+  var dataHash = document.getElementById("dataHashSubjectAttestationStatus").value;
+  var address = document.getElementById("attestationRegistryContractAddress").value;
+  var response = await attestationRegistryWeb3.subjectAttestationStatus(address, subject, dataHash);
+  document.getElementById("subjectAttestationStatusResponse").value = response;
+}
+
+async function subjectAttestationList(){
+  var address = document.getElementById("attestationRegistryContractAddress").value;
+  var response = await attestationRegistryWeb3.subjectAttestationList(address);
+  document.getElementById("subjectAttestationListResponse").value = response;
+}
+
+function revokeAttestation(){
+  var revHash = document.getElementById("revHashrevokeAttestation").value;
+  var status = document.getElementById("statusrevokeAttestation").value;
+  var address = document.getElementById("attestationRegistryContractAddress").value;
+  attestationRegistryWeb3.revokeAttestation(address, revHash, status);
+}
+
+async function issuerRevocationStatus(){
+  var issuer = document.getElementById("issuerissuerRevocationStatus").value;
+  var revHash = document.getElementById("revHashissuerRevocationStatus").value;
+  var address = document.getElementById("attestationRegistryContractAddress").value;
+  var response = await attestationRegistryWeb3.issuerRevocationStatus(address, issuer, revHash);
+  document.getElementById("issuerRevocationStatusResponse").value = response;
+}
+
+async function attestationStatus(){
+  var subjectStatus = document.getElementById("subjectStatusattestationStatus").value;
+  var issuerStatus = document.getElementById("issuerStatusattestationStatus").value;
+  var address = document.getElementById("attestationRegistryContractAddress").value;
+  var response = await attestationRegistryWeb3.attestationStatus(address, subjectStatus, issuerStatus);
+  document.getElementById("attestationStatusResponse").value = response;
+}
+
 //**************CLAIM REGISTRY
 
 //Subject
 
 function deployClaimRegistry(){
   var previousPublishedVersion = document.getElementById("initClaimRegistry").value;
-  var pubKeyRegistry = registryWeb3.deployPubKeyRegistry(String(previousPublishedVersion));
+  var claimRegistry = registryWeb3.deployPubKeyRegistry(String(previousPublishedVersion));
 }
 
-function set(){
-  var dataHash = document.getElementById("dataHashSet").value;
-  var uri = document.getElementById("uriSet").value;
+function setClaim(){
+  var dataHash = document.getElementById("dataHashSetClaim").value;
+  var uri = document.getElementById("uriSetClaim").value;
   var address = document.getElementById("claimRegistryContractAddress").value;
   claimRegistryWeb3.set(address, dataHash, uri);
 }
