@@ -6,3 +6,23 @@ Habría que poder solc compilar desde el js ADEMAS CON DISTINTAS VERSIONES SOLC
 3. Crear funciones js para crear DIDs, firmar etc
 
 4.
+
+Usage Steps:
+1- Deploy PublicKeyRegistry so:
+  a. Any ID can set new public keys
+  b. The ID can revoke their public keys
+  c. The ID can delete their public keys
+  d. Any ID can checks the current public key of another subject
+  e. Any ID can checks the status of the public key ownded by a subject (must know both)
+
+2- Deploy AttestatorRegistry and ClaimRegistry so:
+  a. Attestator/Subject/Receiver can set attestations/claims respectively
+  b. Attestator/Subject/Receiver can update attestations/claims respectively
+  c. Attestator/Subject/Receiver can check attestations/claims status respectively
+  d. Attestator/Subject/Receiver can revoke/delete attestations/claims respectively
+
+3- Deploy IdentityManager (which is also IdentityProvider and IdentityAttestator) so:
+  a. Identity providers can generate access Tokens to a certain address
+  b. A msg.sender with previous address can create an Alastria Identity
+    i. Doing that deploys a Proxy contract
+    ii. The address of this proxy contract is his AlastriaID 
