@@ -4,6 +4,7 @@ import * as registryWeb3 from './blockchainWeb3/registryWeb3.js';
 import * as claimRegistryWeb3 from './blockchainWeb3/claimRegistryWeb3.js';
 import * as attestationRegistryWeb3 from './blockchainWeb3/attestationRegistryWeb3.js';
 
+
 //*************GENERAL
 
 function getAccountN(){
