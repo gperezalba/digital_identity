@@ -10,13 +10,20 @@ Habría que poder solc compilar desde el js ADEMAS CON DISTINTAS VERSIONES SOLC
 Usage Steps:
 1- Deploy PublicKeyRegistry so:
   a. Any ID can set new public keys
+    i. With forward function of Proxy call set function of PublicKeyRegistry
+    ii. Args of set: publicKey is the hash(?) of the pubKey generated in the device
+    iii. The msg.sender would be the address of the proxy aka AlastriaID
   b. The ID can revoke their public keys
   c. The ID can delete their public keys
   d. Any ID can checks the current public key of another subject
   e. Any ID can checks the status of the public key ownded by a subject (must know both)
 
 2- Deploy AttestatorRegistry and ClaimRegistry so:
-  a. Attestator/Subject/Receiver can set attestations/claims respectively
+  Note: the Attestator generates and signs the Attestation and sends it to the subject all offchain
+  a. Subject can set attestations/claims respectively
+    i. With forward function of Proxy call set function of Subject
+    ii. Args of set: dataHash is the hash of the model of Attestation/Claim. The uri e.g www.ugr.es
+    iii. The msg.sender would be the address of the proxy aka AlastriaID
   b. Attestator/Subject/Receiver can update attestations/claims respectively
   c. Attestator/Subject/Receiver can check attestations/claims status respectively
   d. Attestator/Subject/Receiver can revoke/delete attestations/claims respectively
@@ -25,4 +32,4 @@ Usage Steps:
   a. Identity providers can generate access Tokens to a certain address
   b. A msg.sender with previous address can create an Alastria Identity
     i. Doing that deploys a Proxy contract
-    ii. The address of this proxy contract is his AlastriaID 
+    ii. The address of this proxy contract is his AlastriaID

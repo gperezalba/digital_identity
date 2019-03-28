@@ -23,9 +23,9 @@ export function deployIdentityManager(version){
    return alastriaidentitymanager;
 }
 
-export function generateAccessToken(address){
+export function generateAccessToken(address, signAddress){
   var contract = bcWeb3.getContractInstance(identityManagerAbi, String(address));
-  contract.generateAccessToken(web3.eth.defaultAccount, {from: web3.eth.defaultAccount, gas: 4700000});
+  contract.generateAccessToken(String(signAddress), {from: web3.eth.defaultAccount, gas: 4700000});
 }
 
 export function createAlastriaIdentity(address){

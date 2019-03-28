@@ -31,14 +31,14 @@ function deployPubKeyRegistry(){
   var previousPublishedVersion = document.getElementById("initPubKeyRegistry").value;
   var pubKeyRegistry = registryWeb3.deployPubKeyRegistry(String(previousPublishedVersion));
 }
-window.initPubKeyRegistry = initPubKeyRegistry;
+window.deployPubKeyRegistry = deployPubKeyRegistry;
 
 function setPubKey(){
   var address = document.getElementById("registryContractAddress").value;
   var pubKey = document.getElementById("pubKeySet").value;
   registryWeb3.set(address, pubKey);
 }
-window.publishPubKey = publishPubKey;
+window.setPubKey = setPubKey;
 
 function revokePublicKey(){
   var address = document.getElementById("registryContractAddress").value;
@@ -217,8 +217,9 @@ function initIdentityManager(){
 window.initIdentityManager = initIdentityManager;
 
 async function generateAccessToken(){
+  var signAddress = document.getElementById("signAddressgenerateAccessToken").value;
   var address = document.getElementById("idManagerContractAddress").value;
-  idManagerWeb3.generateAccessToken(address);
+  idManagerWeb3.generateAccessToken(address, signAddress);
 }
 window.generateAccessToken = generateAccessToken;
 

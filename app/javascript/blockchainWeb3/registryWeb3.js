@@ -29,20 +29,22 @@ export function set(address, pubKey){
 
 export function revokePublicKey(address, pubKey){
   var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(address));
-  contract.revokePublicKey(pubKey, {from: web3.eth.defaultAccount, gas: 300000});
+  contract.revokePublicKey(String(pubKey), {from: web3.eth.defaultAccount, gas: 300000});
 }
 
 export function deletePublicKey(address, pubKey){
   var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(address));
-  contract.deletePublicKey(pubKey, {from: web3.eth.defaultAccount, gas: 300000});
+  contract.deletePublicKey(String(pubKey), {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-export function currentPublicKey(address){
+export async function currentPublicKey(address, subject){
   var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(address));
-  contract.currentPublicKey(address, {from: web3.eth.defaultAccount, gas: 300000});
+  var response = await contract.currentPublicKey(String(subject), {from: web3.eth.defaultAccount, gas: 300000});
+  return response;
 }
 
-export function publicKeyStatus(address, pubKey){
+export async function publicKeyStatus(address, subject, pubKey){
   var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(address));
-  contract.publicKeyStatus(pubKey, {from: web3.eth.defaultAccount, gas: 300000});
+  var response = await contract.publicKeyStatus(String(subject), String(pubKey), {from: web3.eth.defaultAccount, gas: 300000});
+  return response;
 }
