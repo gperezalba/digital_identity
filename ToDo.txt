@@ -5,8 +5,6 @@ Habría que poder solc compilar desde el js ADEMAS CON DISTINTAS VERSIONES SOLC
 
 3. Crear funciones js para crear DIDs, firmar etc
 
-4.
-
 Usage Steps:
 1- Deploy PublicKeyRegistry so:
   a. Any ID can set new public keys
