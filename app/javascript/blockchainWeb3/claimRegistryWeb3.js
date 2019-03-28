@@ -1,10 +1,10 @@
-import * as bcWeb3 from './bcWeb3.js';
+var bcWeb3 = require('./bcWeb3.js');
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 var claimRegistryAbi = [{"constant":false,"inputs":[{"name":"dualHash","type":"bytes32"},{"name":"status","type":"uint8"}],"name":"receiverUpdateClaim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"dataHash","type":"bytes32"},{"name":"status","type":"uint8"}],"name":"subjectUpdateClaim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"previousPublishedVersion","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"issuer","type":"address"},{"name":"dualHash","type":"bytes32"}],"name":"receiverClaimStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"subjectClaimList","outputs":[{"name":"","type":"uint256"},{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"dataHash","type":"bytes32"},{"name":"URI","type":"string"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"subjectStatus","type":"uint8"},{"name":"receiverStatus","type":"uint8"}],"name":"claimStatus","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[{"name":"subject","type":"address"},{"name":"dataHash","type":"bytes32"}],"name":"subjectClaimStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_previousPublishedVersion","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"hash","type":"bytes32"},{"indexed":false,"name":"status","type":"uint8"}],"name":"ClaimUpdated","type":"event"}];
 
-export function deployClaimRegistry (prevVersion){
+module.exports.deployClaimRegistry = function(prevVersion){
   var _previousPublishedVersion = prevVersion;/* var of type address here */
   var alastriaclaimregistryContract = web3.eth.contract([{"constant":false,"inputs":[{"name":"dualHash","type":"bytes32"},{"name":"status","type":"uint8"}],"name":"receiverUpdateClaim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"dataHash","type":"bytes32"},{"name":"status","type":"uint8"}],"name":"subjectUpdateClaim","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"previousPublishedVersion","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"issuer","type":"address"},{"name":"dualHash","type":"bytes32"}],"name":"receiverClaimStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"subjectClaimList","outputs":[{"name":"","type":"uint256"},{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"dataHash","type":"bytes32"},{"name":"URI","type":"string"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"subjectStatus","type":"uint8"},{"name":"receiverStatus","type":"uint8"}],"name":"claimStatus","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[{"name":"subject","type":"address"},{"name":"dataHash","type":"bytes32"}],"name":"subjectClaimStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_previousPublishedVersion","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"hash","type":"bytes32"},{"indexed":false,"name":"status","type":"uint8"}],"name":"ClaimUpdated","type":"event"}]);
   var alastriaclaimregistry = alastriaclaimregistryContract.new(
@@ -23,23 +23,23 @@ export function deployClaimRegistry (prevVersion){
 
 //***************SUBJECT
 
-export function set(address, dataHash, uri){
+module.exports.set = function(address, dataHash, uri){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
   contract.set(dataHash, uri, {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-export function subjectUpdateClaim(address, dataHash, status){
+module.exports.subjectUpdateClaim = function(address, dataHash, status){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
   contract.subjectUpdateClaim(dataHash, status, {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-export async function subjectClaimStatus(address, dataHash, subject){
+module.exports.subjectClaimStatus = async function(address, dataHash, subject){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
   var response = await contract.subjectClaimStatus(subject, dataHash, {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
 
-export async function subjectClaimList(address){
+module.exports.subjectClaimList = async function(address){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
   var response = await contract.subjectClaimList({from: web3.eth.defaultAccount, gas: 300000});
   return response;
@@ -47,12 +47,12 @@ export async function subjectClaimList(address){
 
 //*************RECEIVER
 
-export function receiverUpdateClaim(address, dualHash, status){
+module.exports.receiverUpdateClaim = function(address, dualHash, status){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
   contract.receiverUpdateClaim(dualHash, status, {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-export async function receiverClaimStatus(address, issuer, dualHash){
+module.exports.receiverClaimStatus = async function(address, issuer, dualHash){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
   var response = await contract.receiverClaimStatus(issuer, dualHash, {from: web3.eth.defaultAccount, gas: 300000});
   return response;
@@ -60,7 +60,7 @@ export async function receiverClaimStatus(address, issuer, dualHash){
 
 //**************UTILITY
 
-export async function claimStatus(address, subjectStatus, receiverStatus){
+module.exports.claimStatus = async function(address, subjectStatus, receiverStatus){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
   var response = await contract.claimStatus(subjectStatus, receiverStatus, {from: web3.eth.defaultAccount, gas: 300000});
   return response;

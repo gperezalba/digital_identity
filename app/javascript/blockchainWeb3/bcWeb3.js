@@ -1,7 +1,5 @@
-//const fs = require("fs");
-//const solc = require('solc');
-//import solc from './../../../node_modules/solc/solcjs'
-
+var fs = require("fs");
+//var solc = require('solc');
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 web3.eth.defaultAccount = web3.eth.accounts[0];
@@ -11,7 +9,7 @@ console.log(version);
 
 //**********Provider
 
-export function setProvider(web3Instance) {
+module.exports.setProvider = function(web3Instance) {
   if(web3.currentProvider) {
     console.log('Last provider ' + web3.currentProvider);
   }
@@ -20,27 +18,27 @@ export function setProvider(web3Instance) {
 
 //**********Accounts
 
-export function getDefaultAccount() {
+module.exports.getDefaultAccount = function() {
   return web3.eth.defaultAccount;
 }
 
-export function setDefaultAccount(account) {
+module.exports.setDefaultAccount = function(account) {
   web3.eth.defaultAccount = account;
 }
 
-export function getAccounts() {
+module.exports.getAccounts = function() {
   var accounts = web3.eth.accounts;
   //console.log(accounts);
   return accounts;
 }
 
-export function signFromAccount(account, data) {
+module.exports.signFromAccount = function(account, data) {
   var result = web3.eth.sign(account, data);
   return result;
 }
 
 //*********Events
-export function listenAllEventsWithFilter(contractInstance, callback, filterParam, filterValue){
+module.exports.listenAllEventsWithFilter = function(contractInstance, callback, filterParam, filterValue){
   var events = contractInstance.allEvents([{filterParam: filterValue}]);
   events.watch(function(error, event){
       if (error) {
@@ -52,7 +50,7 @@ export function listenAllEventsWithFilter(contractInstance, callback, filterPara
   });
 }
 
-export function listenAllEventsContinuously(contractInstance, callback) {
+module.exports.listenAllEventsContinuously = function(contractInstance, callback) {
   var events = contractInstance.allEvents();
   events.watch(function(error, event){
       if (error) {
@@ -64,7 +62,7 @@ export function listenAllEventsContinuously(contractInstance, callback) {
   });
 }
 
-export function listenAllEventsOnce(contractInstance, callback) {
+module.exports.listenAllEventsOnce = function(contractInstance, callback) {
   var events = contractInstance.allEvents();
   events.watch(function(error, event){
     if (error) {
@@ -77,7 +75,7 @@ export function listenAllEventsOnce(contractInstance, callback) {
   });
 }
 
-export function printEventLog(instanceEvent) {
+module.exports.printEventLog = function(instanceEvent) {
     var myEvent = instanceEvent({},{fromBlock: 0, toBlock: "latest"});
     var eventLog = '';
     myEvent.get(function(error, logs){
@@ -93,26 +91,26 @@ export function printEventLog(instanceEvent) {
 
 //********Utils
 
-export function keccak256sha3(data) {
+module.exports.keccak256sha3 = function(data) {
   var hash = web3.sha3(data);
   return hash;
 }
 
-export function toHex(data){
+module.exports.toHex = function(data){
   var str = web3.toHex(data);
   return str;
 }
 
 //******Contracts
 /*
-export function getContractAbi(filePath, nameContract) {
+module.exports.getContractAbi = function(filePath, nameContract) {
   let source = fs.readFileSync(filePath, 'utf8');
   let compiledContract = solc.compile(source, 1);
   let abi = compiledContract.contracts[nameContract].interface;
   return abi;
 }
 
-export function deployContract (filePath, nameContract){
+module.exports.deployContract  = function(filePath, nameContract){
   let source = fs.readFileSync(filePath, 'utf8');
   let compiledContract = solc.compile(source, 1);
   let abi = compiledContract.contracts[nameContract].interface;
@@ -135,7 +133,7 @@ export function deployContract (filePath, nameContract){
 }
 */
 
-export function getContractInstance(abi, address) {
+module.exports.getContractInstance = function(abi, address) {
   var contractInstance = web3.eth.contract(abi).at(address);
   return contractInstance;
 }

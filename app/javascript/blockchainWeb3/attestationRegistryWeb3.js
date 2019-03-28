@@ -1,11 +1,11 @@
-import * as bcWeb3 from './bcWeb3.js';
+var bcWeb3 = require('./bcWeb3.js');
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 var attestationRegistryAbi = [{"constant":false,"inputs":[{"name":"revHash","type":"bytes32"},{"name":"status","type":"uint8"}],"name":"revokeAttestation","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"dataHash","type":"bytes32"}],"name":"deleteAttestation","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"subjectAttestationList","outputs":[{"name":"","type":"uint256"},{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"previousPublishedVersion","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"subjectStatus","type":"uint8"},{"name":"issuerStatus","type":"uint8"}],"name":"attestationStatus","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[{"name":"dataHash","type":"bytes32"},{"name":"URI","type":"string"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"issuer","type":"address"},{"name":"revHash","type":"bytes32"}],"name":"issuerRevocationStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"subject","type":"address"},{"name":"dataHash","type":"bytes32"}],"name":"subjectAttestationStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_previousPublishedVersion","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"dataHash","type":"bytes32"}],"name":"AttestationDeleted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"revHash","type":"bytes32"},{"indexed":false,"name":"status","type":"uint8"}],"name":"AttestationRevoked","type":"event"}];
 
 
-export function deployAttestationRegistry (previousPublishedVersion){
+module.exports.deployAttestationRegistry = function(previousPublishedVersion){
   var _previousPublishedVersion = previousPublishedVersion;/* var of type address here */
   var alastriaattestationregistryContract = web3.eth.contract([{"constant":false,"inputs":[{"name":"revHash","type":"bytes32"},{"name":"status","type":"uint8"}],"name":"revokeAttestation","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"dataHash","type":"bytes32"}],"name":"deleteAttestation","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"subjectAttestationList","outputs":[{"name":"","type":"uint256"},{"name":"","type":"bytes32[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"previousPublishedVersion","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"subjectStatus","type":"uint8"},{"name":"issuerStatus","type":"uint8"}],"name":"attestationStatus","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[{"name":"dataHash","type":"bytes32"},{"name":"URI","type":"string"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"issuer","type":"address"},{"name":"revHash","type":"bytes32"}],"name":"issuerRevocationStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"subject","type":"address"},{"name":"dataHash","type":"bytes32"}],"name":"subjectAttestationStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_previousPublishedVersion","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"dataHash","type":"bytes32"}],"name":"AttestationDeleted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"revHash","type":"bytes32"},{"indexed":false,"name":"status","type":"uint8"}],"name":"AttestationRevoked","type":"event"}]);
   var alastriaattestationregistry = alastriaattestationregistryContract.new(
@@ -22,40 +22,40 @@ export function deployAttestationRegistry (previousPublishedVersion){
    })
 }
 
-export function set(address, dataHash, uri){
+module.exports.set = function(address, dataHash, uri){
   var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
   contract.set(String(dataHash), String(uri), {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-export function deleteAttestation(address, dataHash){
+module.exports.deleteAttestation = function(address, dataHash){
   var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
   contract.deleteAttestation(String(dataHash), {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-export async function subjectAttestationStatus(address, subject, dataHash){
+module.exports.subjectAttestationStatus = async function(address, subject, dataHash){
   var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
   var response = await contract.subjectAttestationStatus(String(subject), String(dataHash), {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
 
-export async function subjectAttestationList(address){
+module.exports.subjectAttestationList = async function(address){
   var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
   var response = await contract.subjectAttestationList({from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
 
-export function revokeAttestation(address, revHash, status){
+module.exports.revokeAttestation = function(address, revHash, status){
   var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
   contract.revokeAttestation(String(revHash), String(status), {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-export async function issuerRevocationStatus(address, issuer, revHash){
+module.exports.issuerRevocationStatus = async function(address, issuer, revHash){
   var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
   var response = await contract.issuerRevocationStatus(String(issuer), String(revHash), {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
 
-export async function attestationStatus(address, subjectStatus, issuerStatus){
+module.exports.attestationStatus = async function(address, subjectStatus, issuerStatus){
   var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
   var response = await contract.attestationStatus(String(subjectStatus), String(issuerStatus), {from: web3.eth.defaultAccount, gas: 300000});
   return response;
