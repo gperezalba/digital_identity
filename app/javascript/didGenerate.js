@@ -6,6 +6,12 @@ var registryWeb3 = require('./blockchainWeb3/registryWeb3.js');
 var registryWeb3 = require('./blockchainWeb3/claimRegistryWeb3.js');
 var attestationRegistryWeb3 = require('./blockchainWeb3/attestationRegistryWeb3.js');
 
+function test(){
+  var response = idManagerWeb3.test();
+  console.log(response);
+}
+window.test = test;
+
 
 //*************GENERAL
 
@@ -19,6 +25,7 @@ function getDefaultAccount(){
   var def = bcWeb3.getDefaultAccount();
   document.getElementById("getDefaultAccount").value = def;
 }
+window.getDefaultAccount = getDefaultAccount;
 
 function setDefaultAccount(){
   var def = document.getElementById("setDefaultAccount").value;

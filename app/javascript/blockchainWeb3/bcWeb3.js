@@ -7,6 +7,10 @@ web3.eth.defaultAccount = web3.eth.accounts[0];
 var version = web3.version.api;
 console.log(version);
 
+module.exports.test = function(){
+  return ('testOK');
+}
+
 //**********Provider
 
 module.exports.setProvider = function(web3Instance) {
