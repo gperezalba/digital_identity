@@ -13,6 +13,7 @@ console.log(def2)
 */
 
 var randomAddress = "0xc0d8f541ab8b71f20c10261818f2f401e8194049";
+
 console.log(randomAddress)
 //var pubKeyRegistry = registryWeb3.deployPubKeyRegistry(randomAddress);
 
