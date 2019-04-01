@@ -10,6 +10,10 @@ module.exports.test = function() {
 
 var identityManagerAbi = [{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"identityKeys","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":true,"inputs":[{"name":"_identityAttestator","type":"address"}],"name":"getEidasLevel","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"_identityAttestator","type":"address"},{"name":"_level","type":"uint8"}],"name":"addIdentityAttestator","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":true,"inputs":[{"name":"_identityProvider","type":"address"}],"name":"isIdentityProvider","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transfer","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"_identityProvider","type":"address"}],"name":"addIdentityProvider","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"owner","type":"address"},{"name":"destination","type":"address"},{"name":"data","type":"bytes"}],"name":"createIdentityWithCall","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"isOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"_signAddress","type":"address"}],"name":"generateAccessToken","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"_identityProvider","type":"address"}],"name":"removeIdentityProvider","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"_identityAttestator","type":"address"}],"name":"removeIdentityAttestator","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"_identityAttestator","type":"address"},{"name":"_level","type":"uint8"}],"name":"modifyIdentityAttestatorEidasLevel","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"owner","type":"address"},{"name":"recoveryKey","type":"address"}],"name":"createIdentity","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[],"name":"createAlastriaIdentity","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"inputs":[{"name":"_version","type":"uint256"}],"payable":false,"type":"constructor","stateMutability":"nonpayable"},{"anonymous":false,"inputs":[{"indexed":true,"name":"signAddress","type":"address"}],"name":"AccessTokenGenerated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"method","type":"string"}],"name":"OperationWasNotSupported","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"identity","type":"address"},{"indexed":true,"name":"creator","type":"address"},{"indexed":false,"name":"owner","type":"address"}],"name":"LogIdentityCreated","type":"event"}];
 
+var pubKeyRegistryAbi = [{"constant":false,"inputs":[{"name":"publicKey","type":"bytes32"}],"name":"deletePublicKey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"int256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"previousPublishedVersion","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"publicKey","type":"bytes32"}],"name":"revokePublicKey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"subject","type":"address"}],"name":"currentPublicKey","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"publicKeyList","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"publicKey","type":"bytes32"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"subject","type":"address"},{"name":"publicKey","type":"bytes32"}],"name":"publicKeyStatus","outputs":[{"name":"exists","type":"bool"},{"name":"status","type":"uint8"},{"name":"startDate","type":"uint256"},{"name":"endDate","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_previousPublishedVersion","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"publicKey","type":"bytes32"}],"name":"PublicKeyDeleted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"publicKey","type":"bytes32"}],"name":"PublicKeyRevoked","type":"event"}];
+
+var proxyAbi = [{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transfer","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"isOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"addr","type":"address"}],"name":"isRecover","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function","stateMutability":"nonpayable"},{"constant":true,"inputs":[],"name":"recover","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function","stateMutability":"view"},{"constant":false,"inputs":[{"name":"destination","type":"address"},{"name":"value","type":"uint256"},{"name":"data","type":"bytes"}],"name":"forward","outputs":[],"payable":false,"type":"function","stateMutability":"nonpayable"},{"inputs":[],"payable":false,"type":"constructor","stateMutability":"nonpayable"},{"payable":true,"type":"fallback","stateMutability":"payable"},{"anonymous":false,"inputs":[{"indexed":true,"name":"destination","type":"address"},{"indexed":false,"name":"value","type":"uint256"},{"indexed":false,"name":"data","type":"bytes"}],"name":"Forwarded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Received","type":"event"}];
+
 //TEMPORARY FUNCTION UNTIL COMPILE AND DEPLOY IS FIXED
 module.exports.deployIdentityManager = function(version){
   var _version = version;
@@ -58,6 +62,13 @@ module.exports.createAlastriaIdentity = function(address){
   contract.createAlastriaIdentity({from: web3.eth.defaultAccount, gas: 4700000});
 }
 
+module.exports.createIdentityWithCall = function(addressDest, owner, addressRegistry, pubKey){
+  var contract = bcWeb3.getContractInstance(identityManagerAbi, String(addressDest));
+  var contractRegistry = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(addressRegistry));
+  var calldata = contractRegistry.set.getData(String(pubKey));
+  contract.createIdentityWithCall(owner, addressRegistry, calldata, {from: web3.eth.defaultAccount, gas: 4700000})
+}
+
 module.exports.listenLogIdentityCreatedEvent = function(address, account, idName){
   var contract = bcWeb3.getContractInstance(identityManagerAbi, String(address));
   var LogIdentityCreated = contract.LogIdentityCreated({owner: String(account)}, {fromBlock: 0, toBlock: 'latest'});
@@ -76,6 +87,19 @@ module.exports.listenLogIdentityCreatedEvent = function(address, account, idName
         //console.log(element.args);
         //si el filtro owner:account no funciona recorrer aqui todos y mostrar solo el adecuado
       });
+    }
+  });
+}
+
+module.exports.listenForwardedEvent = function(address){
+  var contract = bcWeb3.getContractInstance(proxyAbi, String(address));
+  var Forwarded = contract.Forwarded({fromBlock: 0, toBlock: 'latest'});
+  var eventLog = '';
+  Forwarded.get(function(error, logs){
+    if(error) {
+      console.log(error);
+    } else {
+      console.log(logs)
     }
   });
 }
