@@ -23,45 +23,53 @@ module.exports.deployClaimRegistry = function(prevVersion){
 
 //***************SUBJECT
 
-module.exports.set = function(address, dataHash, uri){
-  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
-  contract.set(dataHash, uri, {from: web3.eth.defaultAccount, gas: 300000});
+module.exports.set = function(addressDest, dataHash, uri, addressID){
+  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
+  var calldata = contract.set.getData(dataHash, uri);
+  var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
+  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-module.exports.subjectUpdateClaim = function(address, dataHash, status){
-  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
-  contract.subjectUpdateClaim(dataHash, status, {from: web3.eth.defaultAccount, gas: 300000});
+module.exports.subjectUpdateClaim = function(addressDest, dataHash, status, addressID){
+  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
+  var calldata = contract.subjectUpdateClaim.getData(dataHash, status);
+  var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
+  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-module.exports.subjectClaimStatus = async function(address, dataHash, subject){
-  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
+module.exports.subjectClaimStatus = async function(addressDest, dataHash, subject){
+  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
   var response = await contract.subjectClaimStatus(subject, dataHash, {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
 
-module.exports.subjectClaimList = async function(address){
-  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
-  var response = await contract.subjectClaimList({from: web3.eth.defaultAccount, gas: 300000});
+module.exports.subjectClaimList = async function(addressDest, addressID){
+  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
+  var calldata = contract.subjectClaimList.getData();
+  var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
+  var response = await proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
 
 //*************RECEIVER
 
-module.exports.receiverUpdateClaim = function(address, dualHash, status){
-  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
-  contract.receiverUpdateClaim(dualHash, status, {from: web3.eth.defaultAccount, gas: 300000});
+module.exports.receiverUpdateClaim = function(addressDest, dualHash, status, addressID){
+  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
+  var calldata = contract.receiverUpdateClaim.getData(dualHash, status);
+  var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
+  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-module.exports.receiverClaimStatus = async function(address, issuer, dualHash){
-  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
+module.exports.receiverClaimStatus = async function(addressDest, issuer, dualHash){
+  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
   var response = await contract.receiverClaimStatus(issuer, dualHash, {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
 
 //**************UTILITY
 
-module.exports.claimStatus = async function(address, subjectStatus, receiverStatus){
-  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(address));
+module.exports.claimStatus = async function(addressDest, subjectStatus, receiverStatus){
+  var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
   var response = await contract.claimStatus(subjectStatus, receiverStatus, {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }

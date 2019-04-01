@@ -29,36 +29,42 @@ module.exports.set = function(addressDest, dataHash, uri, addressID){
   proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-module.exports.deleteAttestation = function(address, dataHash){
-  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
-  contract.deleteAttestation(String(dataHash), {from: web3.eth.defaultAccount, gas: 300000});
+module.exports.deleteAttestation = function(addressDest, dataHash, addressID){
+  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(addressDest));
+  var calldata = contract.deleteAttestation.getData(String(dataHash));
+  var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
+  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-module.exports.subjectAttestationStatus = async function(address, subject, dataHash){
-  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
+module.exports.subjectAttestationStatus = async function(addressDest, subject, dataHash){
+  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(addressDest));
   var response = await contract.subjectAttestationStatus(String(subject), String(dataHash), {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
 
-module.exports.subjectAttestationList = async function(address){
-  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
-  var response = await contract.subjectAttestationList({from: web3.eth.defaultAccount, gas: 300000});
+module.exports.subjectAttestationList = async function(addressDest, addressID){
+  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(addressDest));
+  var calldata = contract.subjectAttestationList.getData();
+  var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
+  var response = await proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
 
-module.exports.revokeAttestation = function(address, revHash, status){
-  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
-  contract.revokeAttestation(String(revHash), String(status), {from: web3.eth.defaultAccount, gas: 300000});
+module.exports.revokeAttestation = function(addressDest, revHash, status, addressID){
+  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(addressDest));
+  var calldata = contract.revokeAttestation.getData(String(revHash), String(status));
+  var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
+  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
 }
 
-module.exports.issuerRevocationStatus = async function(address, issuer, revHash){
-  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
+module.exports.issuerRevocationStatus = async function(addressDest, issuer, revHash){
+  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(addressDest));
   var response = await contract.issuerRevocationStatus(String(issuer), String(revHash), {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
 
-module.exports.attestationStatus = async function(address, subjectStatus, issuerStatus){
-  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(address));
+module.exports.attestationStatus = async function(addressDest, subjectStatus, issuerStatus){
+  var contract = bcWeb3.getContractInstance(attestationRegistryAbi, String(addressDest));
   var response = await contract.attestationStatus(String(subjectStatus), String(issuerStatus), {from: web3.eth.defaultAccount, gas: 300000});
   return response;
 }
