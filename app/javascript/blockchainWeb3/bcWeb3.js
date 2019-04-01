@@ -1,11 +1,11 @@
 var fs = require("fs");
-//var solc = require('solc');
+var solc = require('solc');
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 web3.eth.defaultAccount = web3.eth.accounts[0];
 
 var version = web3.version.api;
-console.log(version);
+//console.log(version);
 
 module.exports.test = function(){
   return ('testOK');
@@ -106,7 +106,7 @@ module.exports.toHex = function(data){
 }
 
 //******Contracts
-/*
+
 module.exports.getContractAbi = function(filePath, nameContract) {
   let source = fs.readFileSync(filePath, 'utf8');
   let compiledContract = solc.compile(source, 1);
@@ -118,7 +118,7 @@ module.exports.deployContract  = function(filePath, nameContract){
   let source = fs.readFileSync(filePath, 'utf8');
   let compiledContract = solc.compile(source, 1);
   let abi = compiledContract.contracts[nameContract].interface;
-  let bytecode = compiledContract.contracts[nameContract].bytecode;
+  let bytecode = compiledContract.contracts[nameContract.toString()].bytecode;
   let gasEstimate = web3.eth.estimateGas({data: bytecode});
   let MyContract = web3.eth.contract(JSON.parse(abi));
   var myContractReturned = MyContract.new(param1, param2, {
@@ -135,7 +135,7 @@ module.exports.deployContract  = function(filePath, nameContract){
    });
    return myContractReturned;
 }
-*/
+
 
 module.exports.getContractInstance = function(abi, address) {
   var contractInstance = web3.eth.contract(abi).at(address);

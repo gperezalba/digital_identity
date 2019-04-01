@@ -28,12 +28,49 @@ module.exports.deployIdentityManager = function(version){
    return alastriaidentitymanager;
 }
 
-module.exports.generateAccessToken = function(address, signAddress){
+module.exports.generateAccessToken = async function(address, signAddress){
   var contract = bcWeb3.getContractInstance(identityManagerAbi, String(address));
-  contract.generateAccessToken(String(signAddress), {from: web3.eth.defaultAccount, gas: 4700000});
+  var response = await contract.generateAccessToken(String(signAddress), {from: web3.eth.defaultAccount, gas: 4700000});
+  return response
+}
+
+module.exports.listenAccessTokenEvent = function(address, account){
+  var contract = bcWeb3.getContractInstance(identityManagerAbi, String(address));
+  var AccessTokenGenerated = contract.AccessTokenGenerated({_signAddress: account}, {fromBlock: 0, toBlock: 'latest'});
+  var eventLog = '';
+  AccessTokenGenerated.get(function(error, logs){
+    if(error) {
+      console.log(error);
+    } else {
+      console.log("Event AccessTokenGenerated emited for signAddress: ")
+      console.log(logs[logs.length-1].args.signAddress)
+      logs.forEach(function(element){
+        //console.log(element.args);
+        //si el filtro owner:account no funciona recorrer aqui todos y mostrar solo el adecuado
+      });
+    }
+  });
 }
 
 module.exports.createAlastriaIdentity = function(address){
   var contract = bcWeb3.getContractInstance(identityManagerAbi, String(address));
   contract.createAlastriaIdentity({from: web3.eth.defaultAccount, gas: 4700000});
+}
+
+module.exports.listenLogIdentityCreatedEvent = function(address, account){
+  var contract = bcWeb3.getContractInstance(identityManagerAbi, String(address));
+  var LogIdentityCreated = contract.LogIdentityCreated({owner: String(account)}, {fromBlock: 0, toBlock: 'latest'});
+  var eventLog = '';
+  LogIdentityCreated.get(function(error, logs){
+    if(error) {
+      console.log(error);
+    } else {
+      console.log("Event LogIdentityCreated with: ")
+      console.log(logs[logs.length-1].args)
+      logs.forEach(function(element){
+        //console.log(element.args);
+        //si el filtro owner:account no funciona recorrer aqui todos y mostrar solo el adecuado
+      });
+    }
+  });
 }
