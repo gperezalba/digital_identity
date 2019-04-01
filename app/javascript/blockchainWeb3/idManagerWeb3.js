@@ -1,3 +1,4 @@
+const fs = require('fs');
 var bcWeb3 = require('./bcWeb3.js');
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
@@ -57,7 +58,7 @@ module.exports.createAlastriaIdentity = function(address){
   contract.createAlastriaIdentity({from: web3.eth.defaultAccount, gas: 4700000});
 }
 
-module.exports.listenLogIdentityCreatedEvent = function(address, account){
+module.exports.listenLogIdentityCreatedEvent = function(address, account, idName){
   var contract = bcWeb3.getContractInstance(identityManagerAbi, String(address));
   var LogIdentityCreated = contract.LogIdentityCreated({owner: String(account)}, {fromBlock: 0, toBlock: 'latest'});
   var eventLog = '';
@@ -67,6 +68,10 @@ module.exports.listenLogIdentityCreatedEvent = function(address, account){
     } else {
       console.log("Event LogIdentityCreated with: ")
       console.log(logs[logs.length-1].args)
+      fs.writeFile('./../ids/' + idName + '/did/alastriaID.txt', logs[logs.length-1].args.identity, 'utf8', (err) => {
+        if(err) throw err;
+        console.log('File alastriaID saved')
+      });
       logs.forEach(function(element){
         //console.log(element.args);
         //si el filtro owner:account no funciona recorrer aqui todos y mostrar solo el adecuado
