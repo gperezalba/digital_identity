@@ -1,9 +1,12 @@
-1. Arreglar fs y solc (?) o coger hacer el deploy cogiendo de remix?
-Habría que poder solc compilar desde el js ADEMAS CON DISTINTAS VERSIONES SOLC
+1. Ver por qué el deploy desde js se hace bien pero luego da JUMP error cuando interactuo
 
-2. Crear librería para web3js v 1.0 y hacer la función deploy pasndole abi y bytecode
+2. Cambiar el .txt AlastriaID para que tenga tambien la address owner
 
-3. Crear funciones js para crear DIDs, firmar etc
+3. Hecho el 2 se puede pedir por teclado el nombre de la ID en cada accion y
+esto cogerá alastriaID y address para el from
+
+4. En createDID.js que la pubkey la coja del .pem....para esto hay que incluir
+que tras crear los directorios se llame al createKeys
 
 Usage Steps:
 1- Deploy PublicKeyRegistry so:

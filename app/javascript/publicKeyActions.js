@@ -7,21 +7,32 @@ var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 var publicKeyRegistryAddress = addresses.publicKeyRegistryAddress();
-var proxyAddress = addresses.proxyAddress();
 
 var accounts = bcWeb3.getAccounts();
 bcWeb3.setDefaultAccount(accounts[0])
 
 module.exports.set = function(pubKey){
-  registryWeb3.set(publicKeyRegistryAddress, pubKey, proxyAddress)
+  var idName = readlineSync.question("Enter ID name: ");
+  var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
+  var from = data["owner"]
+  var alastriaID = data["identity"]
+  registryWeb3.set(publicKeyRegistryAddress, pubKey, alastriaID, from)
 }
 
 module.exports.revokePublicKey = function(pubKey){
-  registryWeb3.revokePublicKey(publicKeyRegistryAddress, pubKey, proxyAddress)
+  var idName = readlineSync.question("Enter ID name: ");
+  var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
+  var from = data["owner"]
+  var alastriaID = data["identity"]
+  registryWeb3.revokePublicKey(publicKeyRegistryAddress, pubKey, alastriaID, from)
 }
 
 module.exports.deletePublicKey = function(pubKey){
-  registryWeb3.deletePublicKey(publicKeyRegistryAddress, pubKey, proxyAddress)
+  var idName = readlineSync.question("Enter ID name: ");
+  var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
+  var from = data["owner"]
+  var alastriaID = data["identity"]
+  registryWeb3.deletePublicKey(publicKeyRegistryAddress, pubKey, alastriaID, from)
 }
 
 module.exports.currentPublicKey = async function(subject){

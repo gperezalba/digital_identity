@@ -24,25 +24,25 @@ module.exports.deployPubKeyRegistry  = function(prevVersion){
    return alastriapublickeyregistry;
 }
 
-module.exports.set = function(addressDest, pubKey, addressID){
+module.exports.set = function(addressDest, pubKey, addressID, from){
   var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(addressDest));
   var calldata = contract.set.getData(pubKey);
   var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
-  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
+  proxyContract.forward(String(addressDest), 0, calldata, {from: String(from), gas: 300000});
 }
 
-module.exports.revokePublicKey = function(addressDest, pubKey, addressID){
+module.exports.revokePublicKey = function(addressDest, pubKey, addressID, from){
   var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(addressDest));
   var calldata = contract.revokePublicKey.getData(String(pubKey));
   var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
-  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
+  proxyContract.forward(String(addressDest), 0, calldata, {from: String(from), gas: 300000});
 }
 
-module.exports.deletePublicKey = function(addressDest, pubKey, addressID){
+module.exports.deletePublicKey = function(addressDest, pubKey, addressID, from){
   var contract = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(addressDest));
   var calldata = contract.deletePublicKey.getData(String(pubKey));
   var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
-  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
+  proxyContract.forward(String(addressDest), 0, calldata, {from: String(from), gas: 300000});
 }
 
 module.exports.currentPublicKey = async function(address, subject){

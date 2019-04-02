@@ -7,17 +7,24 @@ var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 var attestationRegistryAddress = addresses.attestationRegistryAddress();
-var alastriaID = addresses.proxyAddress();
 
 var accounts = bcWeb3.getAccounts();
 bcWeb3.setDefaultAccount(accounts[1])
 
 module.exports.set = function(dataHash, uri){
-  attestationRegistryWeb3.set(attestationRegistryAddress, dataHash, uri, alastriaID)
+  var idName = readlineSync.question("Enter ID name: ");
+  var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
+  var from = data["owner"]
+  var alastriaID = data["identity"]
+  attestationRegistryWeb3.set(attestationRegistryAddress, dataHash, uri, alastriaID, from)
 }
 
 module.exports.deleteAttestation = function(dataHash){
-  attestationRegistryWeb3.deleteAttestation(attestationRegistryAddress, dataHash, alastriaID)
+  var idName = readlineSync.question("Enter ID name: ");
+  var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
+  var from = data["owner"]
+  var alastriaID = data["identity"]
+  attestationRegistryWeb3.deleteAttestation(attestationRegistryAddress, dataHash, alastriaID, from)
 }
 
 module.exports.subjectAttestationStatus = function(subject, dataHash){
@@ -30,7 +37,11 @@ module.exports.subjectAttestationList = async function(){
 }
 
 module.exports.revokeAttestation = function(revHash, status){
-  attestationRegistryWeb3.revokeAttestation(attestationRegistryAddress, revHash, status, alastriaID)
+  var idName = readlineSync.question("Enter ID name: ");
+  var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
+  var from = data["owner"]
+  var alastriaID = data["identity"]
+  attestationRegistryWeb3.revokeAttestation(attestationRegistryAddress, revHash, status, alastriaID, from)
 }
 
 module.exports.issuerRevocationStatus = async function(issuer, revHash){

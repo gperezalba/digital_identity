@@ -13,11 +13,19 @@ var accounts = bcWeb3.getAccounts();
 bcWeb3.setDefaultAccount(accounts[1])
 
 module.exports.set = function(dataHash, uri){
-  claimRegistryWeb3.set(attestationRegistryAddress, dataHash, uri, alastriaID)
+  var idName = readlineSync.question("Enter ID name: ");
+  var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
+  var from = data["owner"]
+  var alastriaID = data["identity"]
+  claimRegistryWeb3.set(attestationRegistryAddress, dataHash, uri, alastriaID, from)
 }
 
 module.exports.subjectUpdateClaim = async function(dataHash, status){
-  var response = await claimRegistryWeb3.subjectUpdateClaim(attestationRegistryAddress, dataHash, status, alastriaID)
+  var idName = readlineSync.question("Enter ID name: ");
+  var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
+  var from = data["owner"]
+  var alastriaID = data["identity"]
+  var response = await claimRegistryWeb3.subjectUpdateClaim(attestationRegistryAddress, dataHash, status, alastriaID, from)
   console.log(response)
 }
 
@@ -27,12 +35,20 @@ module.exports.subjectClaimStatus = async function(dataHash, subject){
 }
 
 module.exports.subjectClaimList = async function(){
-  var response = await claimRegistryWeb3.subjectClaimList(attestationRegistryAddress, alastriaID)
+  var idName = readlineSync.question("Enter ID name: ");
+  var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
+  var from = data["owner"]
+  var alastriaID = data["identity"]
+  var response = await claimRegistryWeb3.subjectClaimList(attestationRegistryAddress, alastriaID, from)
   console.log(response)
 }
 
 module.exports.receiverUpdateClaim = function(dualHash, status){
-  claimRegistryWeb3.receiverUpdateClaim(attestationRegistryAddress, dualHash, status, alastriaID)
+  var idName = readlineSync.question("Enter ID name: ");
+  var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
+  var from = data["owner"]
+  var alastriaID = data["identity"]
+  claimRegistryWeb3.receiverUpdateClaim(attestationRegistryAddress, dualHash, status, alastriaID, from)
 }
 
 module.exports.receiverClaimStatus = async function(issuer, dualHash){

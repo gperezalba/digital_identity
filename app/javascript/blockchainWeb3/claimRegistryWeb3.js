@@ -23,18 +23,18 @@ module.exports.deployClaimRegistry = function(prevVersion){
 
 //***************SUBJECT
 
-module.exports.set = function(addressDest, dataHash, uri, addressID){
+module.exports.set = function(addressDest, dataHash, uri, addressID, from){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
   var calldata = contract.set.getData(dataHash, uri);
   var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
-  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
+  proxyContract.forward(String(addressDest), 0, calldata, {from: String(from), gas: 300000});
 }
 
-module.exports.subjectUpdateClaim = function(addressDest, dataHash, status, addressID){
+module.exports.subjectUpdateClaim = function(addressDest, dataHash, status, addressID, from){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
   var calldata = contract.subjectUpdateClaim.getData(dataHash, status);
   var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
-  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
+  proxyContract.forward(String(addressDest), 0, calldata, {from: String(from), gas: 300000});
 }
 
 module.exports.subjectClaimStatus = async function(addressDest, dataHash, subject){
@@ -43,21 +43,21 @@ module.exports.subjectClaimStatus = async function(addressDest, dataHash, subjec
   return response;
 }
 
-module.exports.subjectClaimList = async function(addressDest, addressID){
+module.exports.subjectClaimList = async function(addressDest, addressID, from){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
   var calldata = contract.subjectClaimList.getData();
   var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
-  var response = await proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
+  var response = await proxyContract.forward(String(addressDest), 0, calldata, {from: String(from), gas: 300000});
   return response;
 }
 
 //*************RECEIVER
 
-module.exports.receiverUpdateClaim = function(addressDest, dualHash, status, addressID){
+module.exports.receiverUpdateClaim = function(addressDest, dualHash, status, addressID, from){
   var contract = bcWeb3.getContractInstance(claimRegistryAbi, String(addressDest));
   var calldata = contract.receiverUpdateClaim.getData(dualHash, status);
   var proxyContract = bcWeb3.getContractInstance(proxyAbi, String(addressID));
-  proxyContract.forward(String(addressDest), 0, calldata, {from: web3.eth.defaultAccount, gas: 300000});
+  proxyContract.forward(String(addressDest), 0, calldata, {from: String(from), gas: 300000});
 }
 
 module.exports.receiverClaimStatus = async function(addressDest, issuer, dualHash){

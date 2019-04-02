@@ -77,7 +77,7 @@ module.exports.listenLogIdentityCreatedEvent = function(address, account, idName
     } else {
       console.log("Event LogIdentityCreated with: ")
       console.log(logs[logs.length-1].args)
-      fs.writeFile('./../ids/' + idName + '/did/alastriaID.txt', logs[logs.length-1].args.identity, 'utf8', (err) => {
+      fs.writeFile('./../ids/' + idName + '/did/alastriaID.json', logs[logs.length-1].args, 'utf8', (err) => {
         if(err) throw err;
         console.log('File alastriaID saved')
       });
