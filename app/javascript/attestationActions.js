@@ -11,45 +11,57 @@ var attestationRegistryAddress = addresses.attestationRegistryAddress();
 var accounts = bcWeb3.getAccounts();
 bcWeb3.setDefaultAccount(accounts[1])
 
-module.exports.set = function(dataHash, uri){
+module.exports.set = function(){
   var idName = readlineSync.question("Enter ID name: ");
   var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
   var from = data["owner"]
   var alastriaID = data["identity"]
+  var dataHash = readlineSync.question("Enter dataHash: ");
+  var uri = readlineSync.question("Enter URI: ");
   attestationRegistryWeb3.set(attestationRegistryAddress, dataHash, uri, alastriaID, from)
 }
 
-module.exports.deleteAttestation = function(dataHash){
+module.exports.deleteAttestation = function(){
   var idName = readlineSync.question("Enter ID name: ");
   var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
   var from = data["owner"]
   var alastriaID = data["identity"]
+  var dataHash = readlineSync.question("Enter dataHash: ");
   attestationRegistryWeb3.deleteAttestation(attestationRegistryAddress, dataHash, alastriaID, from)
 }
 
-module.exports.subjectAttestationStatus = function(subject, dataHash){
+module.exports.subjectAttestationStatus = function(){
+  var subject = readlineSync.question("Enter subject: ");
+  var dataHash = readlineSync.question("Enter dataHash: ");
   attestationRegistryWeb3.subjectAttestationStatus(attestationRegistryAddress, subject, dataHash)
 }
 
 module.exports.subjectAttestationList = async function(){
+  var dataHash = readlineSync.question("Enter dataHash: ");
   var response = attestationRegistryWeb3.subjectAttestationList(attestationRegistryAddress, dataHash)
   console.log(response)
 }
 
-module.exports.revokeAttestation = function(revHash, status){
+module.exports.revokeAttestation = function(){
   var idName = readlineSync.question("Enter ID name: ");
   var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
   var from = data["owner"]
   var alastriaID = data["identity"]
+  var revHash = readlineSync.question("Enter revHash: ");
+  var status = readlineSync.question("Enter status: ");
   attestationRegistryWeb3.revokeAttestation(attestationRegistryAddress, revHash, status, alastriaID, from)
 }
 
-module.exports.issuerRevocationStatus = async function(issuer, revHash){
+module.exports.issuerRevocationStatus = async function(){
+  var revHash = readlineSync.question("Enter revHash: ");
+  var issuer = readlineSync.question("Enter issuer: ");
   var response = attestationRegistryWeb3.issuerRevocationStatus(attestationRegistryAddress, issuer, revHash)
   console.log(response)
 }
 
-module.exports.attestationStatus = async function(subjectStatus, issuerStatus){
+module.exports.attestationStatus = async function(){
+  var subjectStatus = readlineSync.question("Enter subjectStatus: ");
+  var issuerStatus = readlineSync.question("Enter issuerStatus: ");
   var response = attestationRegistryWeb3.attestationStatus(attestationRegistryAddress, subjectStatus, issuerStatus)
   console.log(response)
 }

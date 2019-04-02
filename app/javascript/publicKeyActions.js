@@ -11,36 +11,42 @@ var publicKeyRegistryAddress = addresses.publicKeyRegistryAddress();
 var accounts = bcWeb3.getAccounts();
 bcWeb3.setDefaultAccount(accounts[0])
 
-module.exports.set = function(pubKey){
+module.exports.set = function(){
   var idName = readlineSync.question("Enter ID name: ");
   var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
   var from = data["owner"]
   var alastriaID = data["identity"]
+  var pubKey = readlineSync.question("Enter pubKey: ");
   registryWeb3.set(publicKeyRegistryAddress, pubKey, alastriaID, from)
 }
 
-module.exports.revokePublicKey = function(pubKey){
+module.exports.revokePublicKey = function(){
   var idName = readlineSync.question("Enter ID name: ");
   var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
   var from = data["owner"]
   var alastriaID = data["identity"]
+  var pubKey = readlineSync.question("Enter pubKey: ");
   registryWeb3.revokePublicKey(publicKeyRegistryAddress, pubKey, alastriaID, from)
 }
 
-module.exports.deletePublicKey = function(pubKey){
+module.exports.deletePublicKey = function(){
   var idName = readlineSync.question("Enter ID name: ");
   var data = JSON.parse(fs.readFileSync('./../ids/' + idName + '/did/alastriaID.json', 'utf8'));
   var from = data["owner"]
   var alastriaID = data["identity"]
+  var pubKey = readlineSync.question("Enter pubKey: ");
   registryWeb3.deletePublicKey(publicKeyRegistryAddress, pubKey, alastriaID, from)
 }
 
-module.exports.currentPublicKey = async function(subject){
+module.exports.currentPublicKey = async function(){
+  var subject = readlineSync.question("Enter subject: ");
   var response = registryWeb3.currentPublicKey(publicKeyRegistryAddress, subject)
   console.log(response)
 }
 
-module.exports.publicKeyStatus = async function(subject, pubKey){
+module.exports.publicKeyStatus = async function(){
+  var subject = readlineSync.question("Enter subject: ");
+  var pubKey = readlineSync.question("Enter pubKey: ");
   var response = registryWeb3.publicKeyStatus(publicKeyRegistryAddress, subject, pubKey)
   console.log(response)
 }
