@@ -3,6 +3,7 @@ var readlineSync = require('readline-sync');
 const bcWeb3 = require('./blockchainWeb3/bcWeb3.js');
 const idManagerWeb3 = require('./blockchainWeb3/idManagerWeb3.js');
 const addresses = require('./AddressesAndAbis/addresses.js');
+const keys = require('./createKeys.js');
 var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
@@ -21,13 +22,18 @@ module.exports.createAlastriaIdentity = async function(){
     fs.mkdirSync(dir + '/claims');
     fs.mkdirSync(dir + '/did');
   }
+  keys.generate(idName);
+  console.log(accounts)
+  var ownerAcc = readlineSync.question("Enter owner account: ");
   bcWeb3.setDefaultAccount(accounts[0])
-  var response = await idManagerWeb3.generateAccessToken(identityManagerAddress, accounts[1])
-  bcWeb3.setDefaultAccount(accounts[1])
-  idManagerWeb3.listenAccessTokenEvent(identityManagerAddress, accounts[1])
-  var pubKey = "0x1111000000000000000000000000000000000000000000000000000000000000"; //leer de /did/publicKey.pem y hacer el hash(?)
-  idManagerWeb3.createIdentityWithCall(identityManagerAddress, accounts[1], publicKeyRegistryAddress, pubKey)
-  idManagerWeb3.listenLogIdentityCreatedEvent(identityManagerAddress, accounts[1], idName)
+  var response = await idManagerWeb3.generateAccessToken(identityManagerAddress, ownerAcc)
+  bcWeb3.setDefaultAccount(ownerAcc)
+  idManagerWeb3.listenAccessTokenEvent(identityManagerAddress, ownerAcc)
+  var publicKeyData = fs.readFileSync('./../ids/' + idName + '/did/publicKey.pem', 'utf8');
+  var pubKey = bcWeb3.keccak256sha3(publicKeyData)
+  //var pubKey = "0x1111000000000000000000000000000000000000000000000000000000000000";
+  idManagerWeb3.createIdentityWithCall(identityManagerAddress, ownerAcc, publicKeyRegistryAddress, pubKey)
+  idManagerWeb3.listenLogIdentityCreatedEvent(identityManagerAddress, ownerAcc, idName)
 }
 
 require('make-runnable/custom')({

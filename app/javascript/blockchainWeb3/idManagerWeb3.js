@@ -64,7 +64,7 @@ module.exports.createIdentityWithCall = function(addressDest, owner, addressRegi
   var contract = bcWeb3.getContractInstance(identityManagerAbi, String(addressDest));
   var contractRegistry = bcWeb3.getContractInstance(pubKeyRegistryAbi, String(addressRegistry));
   var calldata = contractRegistry.set.getData(String(pubKey));
-  contract.createIdentityWithCall(owner, addressRegistry, calldata, {from: web3.eth.defaultAccount, gas: 4700000})
+  contract.createIdentityWithCall(owner, addressRegistry, calldata, {from: String(owner), gas: 4700000})
 }
 
 module.exports.listenLogIdentityCreatedEvent = function(address, account, idName){
@@ -76,8 +76,8 @@ module.exports.listenLogIdentityCreatedEvent = function(address, account, idName
       console.log(error);
     } else {
       console.log("Event LogIdentityCreated with: ")
-      console.log(logs[logs.length-1].args)
-      fs.writeFile('./../ids/' + idName + '/did/alastriaID.json', logs[logs.length-1].args, 'utf8', (err) => {
+      console.log(logs[logs.length-1].args) //TODO: el filtro parece que no funciona, cuidado, FIX IT
+      fs.writeFile('./../ids/' + idName + '/did/alastriaID.json', JSON.stringify(logs[logs.length-1].args), 'utf8', (err) => {
         if(err) throw err;
         console.log('File alastriaID saved')
       });

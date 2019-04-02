@@ -40,14 +40,14 @@ module.exports.deletePublicKey = function(){
 
 module.exports.currentPublicKey = async function(){
   var subject = readlineSync.question("Enter subject: ");
-  var response = registryWeb3.currentPublicKey(publicKeyRegistryAddress, subject)
+  var response = await registryWeb3.currentPublicKey(publicKeyRegistryAddress, subject)
   console.log(response)
 }
 
 module.exports.publicKeyStatus = async function(){
   var subject = readlineSync.question("Enter subject: ");
   var pubKey = readlineSync.question("Enter pubKey: ");
-  var response = registryWeb3.publicKeyStatus(publicKeyRegistryAddress, subject, pubKey)
+  var response = await registryWeb3.publicKeyStatus(publicKeyRegistryAddress, subject, pubKey)
   console.log(response)
 }
 

@@ -96,7 +96,7 @@ module.exports.printEventLog = function(instanceEvent) {
 //********Utils
 
 module.exports.keccak256sha3 = function(data) {
-  var hash = web3.sha3(data);
+  var hash = web3.sha3(String(data));
   return hash;
 }
 
